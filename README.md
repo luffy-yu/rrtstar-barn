@@ -4,8 +4,21 @@
 
 --------------------------------------------------------------------------------
 
-# ICRA 2022 BARN Challenge
-
+# ICRA 2023 BARN Challenge
+## Solution
+* New package "tps_astar" is the project that will be used to solve the challenge. 
+```
+  catkin_create_pkg tps_astar std_msgs roscpp rospy tf sensor_msgs
+```
+* Create submodule for the underlying algorithm library
+```
+  mkdir submodules && cd submodules
+  git submodule add https://github.com/jlblancoc/selfdriving.git 
+```
+* since its already created, get it with 
+```
+  git submodule update --init --recursive
+```
 ## Requirements
 If you run it on a local machine without containers:
 * ROS version at least Kinetic
