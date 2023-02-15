@@ -91,6 +91,12 @@ if __name__ == "__main__":
         'roslaunch',
         launch_file,
     ])
+
+    mrpt_local_obstacles = join(base_path, '..', 'tps_astar/launch/mrpt_local_obstacles.launch')
+    nav_stack_process = subprocess.Popen([
+        'roslaunch',
+        mrpt_local_obstacles,
+    ])
     
     # Make sure your navigation stack recives a goal of (0, 10, 0), which is 10 meters away
     # along postive y-axis.
