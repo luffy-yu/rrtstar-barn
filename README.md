@@ -25,14 +25,16 @@
   sudo apt-get install libmrpt-dev
 
   sudo apt-get install -y ros-<distro>-mrpt2 \
-                          ros-<distro>-mrpt-localization \
-                          ros-<distro>-mrpt-local-obstacles \
-                          ros-<distro>-mrpt-map \
                           ros-<distro>-mrpt-msgs \
-                          ros-<distro>-mrpt-rawlog
+```
+* Add mrpt_navigation as a submodule using 
+```
+  git submodule add https://github.com/mrpt-ros-pkg/mrpt_navigation.git
 ```
 * Get the lidar scan from the Jackal robot using mrpt_local_obstacles node 
 using the launch file
+
+* Start publishing the map as a NavMsg using the mrpt_map map_server_node.
 
 
 ## Requirements

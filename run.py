@@ -42,12 +42,15 @@ if __name__ == "__main__":
     os.environ["JACKAL_LASER_OFFSET"] = "-0.065 0 0.01"
     
     world_name = "BARN/world_%d.world" %(args.world_idx)
+    map_name = "yaml_%d.yaml" %(args.world_idx)
+    print(map_name)
     print(">>>>>>>>>>>>>>>>>> Loading Gazebo Simulation with %s <<<<<<<<<<<<<<<<<<" %(world_name))   
     rospack = rospkg.RosPack()
     base_path = rospack.get_path('jackal_helper')
     
     launch_file = join(base_path, 'launch', 'gazebo_launch.launch')
     world_name = join(base_path, "worlds", world_name)
+    map_yaml_file = join(base_path,"map_files",map_name)
     
     gazebo_process = subprocess.Popen([
         'roslaunch',
@@ -90,6 +93,13 @@ if __name__ == "__main__":
     nav_stack_process = subprocess.Popen([
         'roslaunch',
         launch_file,
+    ])
+
+    mrpt_map_launch = join(base_path,'..', 'tps_astar/launch/mrpt_map_server.launch')
+    mrpt_map_process = subprocess.Popen([
+        'roslaunch',
+        mrpt_map_launch,
+        'map_yaml_file:=' + map_yaml_file
     ])
 
     mrpt_local_obstacles = join(base_path, '..', 'tps_astar/launch/mrpt_local_obstacles.launch')
