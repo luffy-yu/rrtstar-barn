@@ -9,6 +9,7 @@ import rospy
 import rospkg
 
 from gazebo_simulation import GazeboSimulation
+from geometry_msgs.msg import PoseWithCovarianceStamped, Quaternion
 
 INIT_POSITION = [-2, 3, 1.57]  # in world frame
 GOAL_POSITION = [0, 10]  # relative to the initial position
@@ -103,15 +104,25 @@ if __name__ == "__main__":
     ])
 
     mrpt_local_obstacles = join(base_path, '..', 'tps_astar/launch/mrpt_local_obstacles.launch')
-    nav_stack_process = subprocess.Popen([
+    mrpt_obs_process = subprocess.Popen([
         'roslaunch',
         mrpt_local_obstacles,
+    ])
+
+    mrpt_localization = join(base_path,'..', 'tps_astar/launch/mrpt_localization.launch')
+    mrpt_localization_process = subprocess.Popen([
+        'roslaunch',
+        mrpt_localization,
+        'odom_frame_id:='+'odom',
+        'global_frame_id:='+'map',
+        'base_frame_id:='+'base_link',
+        'sensor_sources:='+'/front/scan',
+        'use_map_topic:='+'true'
     ])
     
     # Make sure your navigation stack recives a goal of (0, 10, 0), which is 10 meters away
     # along postive y-axis.
     import actionlib
-    from geometry_msgs.msg import Quaternion
     from move_base_msgs.msg import MoveBaseGoal, MoveBaseAction
     nav_as = actionlib.SimpleActionClient('/move_base', MoveBaseAction)
     mb_goal = MoveBaseGoal()

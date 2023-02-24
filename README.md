@@ -36,6 +36,8 @@ using the launch file
 
 * Start publishing the map as a NavMsg using the mrpt_map map_server_node.
 
+* Use the published map for localization node.
+
 
 ## Requirements
 If you run it on a local machine without containers:
