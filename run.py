@@ -9,7 +9,7 @@ import rospy
 import rospkg
 
 from gazebo_simulation import GazeboSimulation
-from geometry_msgs.msg import PoseWithCovarianceStamped, Quaternion
+from geometry_msgs.msg import Quaternion
 
 INIT_POSITION = [-2, 3, 1.57]  # in world frame
 GOAL_POSITION = [0, 10]  # relative to the initial position
@@ -89,12 +89,6 @@ if __name__ == "__main__":
     ## 1. Launch your navigation stack
     ## (Customize this block to add your own navigation stack)
     ##########################################################################################
-    
-    launch_file = join(base_path, '..', 'jackal_helper/launch/move_base_DWA.launch')
-    nav_stack_process = subprocess.Popen([
-        'roslaunch',
-        launch_file,
-    ])
 
     mrpt_map_launch = join(base_path,'..', 'tps_astar/launch/mrpt_map_server.launch')
     mrpt_map_process = subprocess.Popen([
@@ -117,9 +111,18 @@ if __name__ == "__main__":
         'global_frame_id:='+'map',
         'base_frame_id:='+'base_link',
         'sensor_sources:='+'/front/scan',
-        'use_map_topic:='+'true'
+        'use_map_topic:='+'true', 
+        'initial_pose_x:='+ str(INIT_POSITION[0]),
+        "initial_pose_y:="+ str(INIT_POSITION[1]),
+        'initial_pose_phi:='+str(INIT_POSITION[2])
     ])
     
+    time.sleep(5)
+    launch_file = join(base_path, '..', 'jackal_helper/launch/move_base_DWA.launch')
+    nav_stack_process = subprocess.Popen([
+        'roslaunch',
+        launch_file,
+    ])
     # Make sure your navigation stack recives a goal of (0, 10, 0), which is 10 meters away
     # along postive y-axis.
     import actionlib
@@ -134,9 +137,6 @@ if __name__ == "__main__":
 
     nav_as.wait_for_server()
     nav_as.send_goal(mb_goal)
-
-
-
 
     ##########################################################################################
     ## 2. Start navigation
