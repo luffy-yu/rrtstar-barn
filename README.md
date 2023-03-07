@@ -2,8 +2,28 @@
   <img width = "100%" src='res/BARN_Challenge.png' />
   </p>
 
---------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+TPS-RRT* for BARN Challenge
+
+## Setup environment
+
+- ROS
+
+```
+sudo apt-get install -y ros-<distro>-marker-msgs
+
+sudo apt-get install -y ros-<distro>-pose-cov-ops
+```
+
+
+- CMake
+
+Upgrade to [Cmake 3.26](https://cmake.org/download/)
+
+**Refers & Thanks to:** [https://github.com/SRai22/barn-tps-astar-icra2023](https://github.com/SRai22/barn-tps-astar-icra2023)
+
+<hr />
 # ICRA 2023 BARN Challenge
 ## Solution
 * New package "tps_astar" is the project that will be used to solve the challenge. 
