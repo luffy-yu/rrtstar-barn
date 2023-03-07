@@ -19,7 +19,7 @@ sudo apt-get install -y ros-<distro>-pose-cov-ops
 
 - CMake
 
-Upgrade to [Cmake 3.26](https://cmake.org/download/)
+Upgrade to [CMake 3.26](https://cmake.org/download/)
 
 **Refers & Thanks to:** [https://github.com/SRai22/barn-tps-astar-icra2023](https://github.com/SRai22/barn-tps-astar-icra2023)
 
